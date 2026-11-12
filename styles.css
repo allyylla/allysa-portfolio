@@ -216,12 +216,18 @@ h2 em, .section-head em { font-style: italic; font-weight: 400; background: var(
 .projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: start; }
 .project { overflow: hidden; transition: transform .45s var(--ease), border-color .35s, box-shadow .45s var(--ease); transform-style: preserve-3d; }
 .project:hover { border-color: var(--border-hi); box-shadow: 0 26px 60px -24px rgba(223, 54, 124, .55); }
-.project-visual { position: relative; height: 190px; overflow: hidden; background: radial-gradient(circle at 20% 15%, var(--c1), transparent 60%), radial-gradient(circle at 90% 90%, var(--c2), transparent 55%), var(--grape); }
-.project-visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(28, 18, 25, .55)); }
-.project-num { position: absolute; top: 14px; left: 20px; font-family: var(--serif); font-size: 3.2rem; font-style: italic; color: rgba(255, 255, 255, .9); z-index: 1; line-height: 1; }
-.project-art { position: absolute; right: 18px; bottom: 14px; width: 120px; height: 120px; fill: none; stroke: rgba(255, 255, 255, .85); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; z-index: 1; transition: transform .6s var(--ease); }
-.project:hover .project-art { transform: scale(1.08) rotate(-3deg); }
-.tag { position: absolute; left: 20px; bottom: 16px; z-index: 1; font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; background: rgba(28, 18, 25, .6); border: 1px solid rgba(255, 255, 255, .2); backdrop-filter: blur(6px); }
+.project-visual { display: block; width: 100%; padding: 0; border: 0; font: inherit; color: inherit; cursor: zoom-in; position: relative; height: 230px; overflow: hidden; background: radial-gradient(circle at 20% 15%, var(--c1), transparent 60%), radial-gradient(circle at 90% 90%, var(--c2), transparent 55%), var(--grape); }
+.project-visual::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(28, 18, 25, .35) 0%, transparent 30%, transparent 55%, rgba(28, 18, 25, .7)); }
+.project-num { position: absolute; top: 12px; left: 18px; font-family: var(--serif); font-size: 2.6rem; font-style: italic; color: #fff; z-index: 2; line-height: 1; text-shadow: 0 2px 14px rgba(28, 18, 25, .6); }
+.shot { position: absolute; left: 50%; top: 34px; transform: translateX(-50%); border-radius: 10px; box-shadow: 0 18px 40px -12px rgba(28, 18, 25, .8), 0 0 0 1px rgba(255, 255, 255, .18); transition: transform .6s var(--ease); background: #fff; }
+.shot-wide { width: 86%; left: auto; right: -6%; transform: none; top: 40px; }
+.shot-tall { width: 54%; }
+.shot-phone { width: 40%; border-radius: 16px; }
+.project:hover .shot { transform: translateX(-50%) translateY(-10px); }
+.project:hover .shot-wide { transform: translate(-4%, -10px); }
+.zoom { position: absolute; top: 14px; right: 14px; z-index: 2; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; font-size: 1rem; background: rgba(28, 18, 25, .6); border: 1px solid rgba(255, 255, 255, .25); backdrop-filter: blur(6px); opacity: 0; transform: scale(.8); transition: opacity .3s, transform .3s var(--ease); }
+.project-visual:hover .zoom, .project-visual:focus-visible .zoom { opacity: 1; transform: none; }
+.tag { position: absolute; left: 18px; bottom: 16px; z-index: 2; font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; background: rgba(28, 18, 25, .6); border: 1px solid rgba(255, 255, 255, .2); backdrop-filter: blur(6px); }
 .project-body { padding: 24px 26px 26px; }
 .role { font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--petal); margin-bottom: 8px; }
 .project h3 { font-size: 1.5rem; margin-bottom: 12px; }
@@ -283,6 +289,16 @@ a.contact-item:hover { border-color: var(--border-hi); transform: translateX(6px
 .field.invalid input, .field.invalid textarea { border-color: var(--straw); }
 .form-status { margin-top: 14px; font-size: .9rem; min-height: 1.4em; text-align: center; color: var(--petal); }
 .form-status.error { color: #ff8a8c; }
+
+/* ---------- Lightbox ---------- */
+.lightbox { max-width: min(1100px, calc(100vw - 32px)); max-height: calc(100vh - 32px); padding: 18px; border: 1px solid var(--border-hi); border-radius: var(--radius); background: var(--bg-2); color: var(--text); overflow: auto; }
+.lightbox::backdrop { background: rgba(20, 12, 18, .82); backdrop-filter: blur(8px); }
+.lightbox[open] { animation: pop .35s var(--ease); }
+@keyframes pop { from { opacity: 0; transform: scale(.96); } }
+.lightbox img { display: block; max-width: 100%; max-height: calc(100vh - 120px); margin: 0 auto; border-radius: 12px; }
+.lightbox-caption { margin-top: 12px; text-align: center; font-size: .9rem; color: var(--muted); }
+.lightbox-close { position: sticky; top: 0; float: right; margin: 0 0 8px 8px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border-hi); background: var(--grape); color: var(--text); font-size: 1rem; cursor: pointer; z-index: 1; }
+.lightbox-close:hover { background: var(--rose); }
 
 /* ---------- Footer ---------- */
 .footer { width: min(var(--max), calc(100% - 32px)); margin: 40px auto 0; padding: 32px 0 40px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; font-size: .88rem; color: var(--faint); }

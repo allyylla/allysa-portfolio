@@ -92,6 +92,22 @@
     });
   });
 
+  // Screenshot lightbox
+  const lightbox = $("#lightbox");
+  const lbImg = $("img", lightbox);
+  const lbCaption = $(".lightbox-caption", lightbox);
+  $$(".project-visual").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const img = $("img", btn);
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lbCaption.textContent = $("h3", btn.closest(".project")).textContent;
+      lightbox.showModal();
+    });
+  });
+  $(".lightbox-close").addEventListener("click", () => lightbox.close());
+  lightbox.addEventListener("click", (e) => { if (e.target === lightbox) lightbox.close(); });
+
   // Contact form — validates, then opens the visitor's email app pre-filled.
   // To receive messages without an email client, set FORM_ENDPOINT to a
   // Formspree (or similar) URL, e.g. "https://formspree.io/f/xxxxxxx".
